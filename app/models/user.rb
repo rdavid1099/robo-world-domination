@@ -5,6 +5,8 @@ class User < ApplicationRecord
   validates :password, confirmation: true
   validates_length_of :password, in: 6..20, on: :create
   validates :avatar, presence: true
+  validates :account_id, presence: true
+  validates :world_force_id, presence: true
 
   after_initialize :init
   before_save :encrypt_password

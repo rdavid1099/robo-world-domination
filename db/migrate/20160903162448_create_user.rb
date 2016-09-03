@@ -6,6 +6,7 @@ class CreateUser < ActiveRecord::Migration[5.0]
       t.string :salt
       t.string :avatar
       t.integer :world_force_id
+      t.integer :account_id
 
       t.timestamps null: false
     end
