@@ -1,0 +1,6 @@
+<%= form_for(@platoon) do |f| %>
+  <%= f.label :name, "Platoon's Name" %><br>
+  <%= f.text_field :name %><br><br>
+
+  <%= f.submit (@platoon.new_record? ? "Deploy Platoon" : "Update Platoon") %>
+<% end %>

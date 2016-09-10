@@ -17,7 +17,6 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 # require 'capybara/rails'
-require 'mocha/mini_test'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -34,14 +33,7 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
-  # rspec-mocks config goes here. You can use an alternate test double
-  # library (such as bogus or mocha) by changing the `mock_with` option here.
-  config.mock_with :rspec do |mocks|
-    # Prevents you from mocking or stubbing a method that does not exist on
-    # a real object. This is generally recommended, and will default to
-    # `true` in RSpec 4.
-    mocks.verify_partial_doubles = true
-  end
+  config.mock_with :mocha
 
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
   # have no way to turn it off -- the option exists only for backwards
@@ -101,9 +93,11 @@ RSpec.configure do |config|
 =end
 
 def create_user(n = 1)
-  n.times do
-    User.create(username: "test#{n}",
-                email: "test#{n}@test.com",
+  n.times do |index|
+    User.create(name: "test",
+                birthday: "1-1-1990",
+                username: "test#{index}",
+                email: "test#{index}@test.com",
                 password: "testing",
                 avatar: "mypic.jpg")
   end
@@ -112,20 +106,40 @@ def create_user(n = 1)
 end
 
 def create_admin
-  User.create(username: "test_admin",
+  User.create(name: "test",
+              birthday: "1-1-1990",
+              username: "test_admin",
               email: "test_admin@test.com",
               password: "testing",
               avatar: "mypic.jpg",
               role: 1)
 end
 
-# class ActionDispatch::IntegrationTest
-#   include Capybara::DSL
-#
-#   def teardown
-#     reset_session!
-#   end
-# end
+def create_platoon(user = create_user, n = 1)
+  n.times do |index|
+    user.platoons.create(name: "test#{index}")
+  end
+  return Platoon.last if n == 1
+  Platoon.all
+end
+
+def create_robot(platoon = create_platoon, n = 1)
+  create_divisions
+  n.times do |index|
+    @division = Division.first if index.even?
+    @division = Division.last if index.odd?
+    platoon.robots.create(name: "robo test#{index}",
+                          division: @division)
+  end
+  return Robot.last if n == 1
+  Robot.all
+end
+
+def create_divisions
+  Division.create(unit_type: "Infantry")
+  Division.create(unit_type: "Medic")
+end
+
 
 config.color = true
 config.tty = true

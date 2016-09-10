@@ -1,0 +1,20 @@
+<h1>Platoon: <%= @platoon.name.capitalize %></h1>
+<h4>Combat History</h4>
+<ul>
+  <li>Wins: <%= @platoon.num_of_wins %></li>
+  <li>Losses: <%= @platoon.num_of_losses %></li>
+</ul>
+<br>
+<h4>BattleBots</h4>
+<% if @platoon.robots.empty? %>
+  <p>This platoon does not have any robots.</p>
+<% else %>
+  <ul>
+    <% @platoon.robots.each do |robot| %>
+      <li>Name: <%= link_to robot.name, platoon_robot_path(@platoon, robot) %> - Division: <%= robot.division.unit_type %> - Remaining Health: <%= robot.health %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= link_to "Build More Bots", new_platoon_robot_path(@platoon) %>
+<br><br>
+<%= link_to "Change Platoon Name", edit_platoon_path(@platoon) %> | <%= link_to "Disband Platoon", platoon_path(@platoon), method: :delete %>

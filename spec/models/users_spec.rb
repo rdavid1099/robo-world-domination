@@ -2,14 +2,16 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  it "is initialized with an email, password, avatar" do
+  it "is initialized with proper params" do
     user = create_user
 
     expect(user).to be_valid
   end
 
   it "is invalid if email not provided" do
-    user = User.create(username: "test",
+    user = User.create(name: "test",
+                       birthday: "1-1-1990",
+                       username: "test",
                        password: "testing",
                        avatar: "mypic.jpg")
 
@@ -17,7 +19,9 @@ RSpec.describe User, type: :model do
   end
 
   it "is invalid if password not provided" do
-    user = User.create(username: "test",
+    user = User.create(name: "test",
+                       birthday: "1-1-1990",
+                       username: "test",
                        email: "test@test.com",
                        avatar: "mypic.jpg")
 
@@ -32,7 +36,9 @@ RSpec.describe User, type: :model do
   end
 
   it "is invalid if invalid email is provided" do
-    user = User.create(username: "test",
+    user = User.create(name: "test",
+                       birthday: "1-1-1990",
+                       username: "test",
                        email: "test@test.com",
                        password: "testing",
                        avatar: "mypic.jpg")
@@ -46,12 +52,14 @@ RSpec.describe User, type: :model do
   end
 
   it "provides default avatar source if image is not uploaded" do
-    user = User.create(username: "test",
+    user = User.create(name: "test",
+                       birthday: "1-1-1990",
+                       username: "test",
                        email: "test@test.com",
                        password: "testing")
 
 
-    expect(user.avatar).to eql("/photos/default_avatar.jpg")
+    expect(user.avatar).to eql("default_avatar.jpg")
   end
 
   it "is a 'default' account by default" do

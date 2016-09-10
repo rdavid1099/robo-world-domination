@@ -1,0 +1,7 @@
+<h1><%= current_user.username.capitalize %>'s Platoons</h1>
+<ul>
+  <% @platoons.each do |platoon| %>
+    <li><%= link_to platoon.name.capitalize, platoon_path(platoon) %> Platoon: <%= pluralize(platoon.robots.count, "Bot") %> Stationed<br>
+    <%= link_to "Change Platoon Name", edit_platoon_path(platoon) %> | <%= link_to "Build Bots", new_platoon_robot_path(platoon) %></li>
+  <% end %>
+</ul>

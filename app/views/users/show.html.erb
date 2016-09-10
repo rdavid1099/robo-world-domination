@@ -1,0 +1,12 @@
+<h1><%= @user.username.capitalize %>'s Battleplan</h1>
+<%= image_tag(@user.avatar, class: "profile-pic") %>
+<ul>
+  <li>Name: <%= @user.name.capitalize %></li>
+  <li>Birthday: <%= @user.birthday.strftime("%m/%d/%Y") %></li>
+  <li>Email Address: <%= @user.email %></li>
+  <li>Number of Platoons: <%= @user.platoons.count %><br>
+  <%= link_to "See All Platoons", platoons_path %> | <%= link_to "Create Platoon", new_platoon_path %></li>
+  <li>Current Record: WILL UPDATE!!</li>
+</ul>
+<%= link_to "Edit Profile Information", profile_edit_path %> |
+<%= link_to "Delete Account", profile_path, method: :delete, data: {confirm: "You will no longer have an account and lose all your progress.  Do you want to conitnue?"}%>

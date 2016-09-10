@@ -1,0 +1,14 @@
+<%= form_for([@platoon, @robot]) do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br><br>
+
+  <%= f.label :division, "Unit Type: " %>
+  <%= f.collection_select :division_id, @divisions, :id, :unit_type %><br><br>
+
+  <% unless @robot.new_record? %>
+    <%= f.label :platoon, "Stationed Platoon" %>
+    <%= f.collection_select :platoon_id, @platoons, :id, :name %><br><br>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
