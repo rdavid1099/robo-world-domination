@@ -16,6 +16,9 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+# require 'capybara/rails'
+require 'mocha/mini_test'
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -96,6 +99,33 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+def create_user(n = 1)
+  n.times do
+    User.create(username: "test#{n}",
+                email: "test#{n}@test.com",
+                password: "testing",
+                avatar: "mypic.jpg")
+  end
+  return User.last if n == 1
+  User.all
+end
+
+def create_admin
+  User.create(username: "test_admin",
+              email: "test_admin@test.com",
+              password: "testing",
+              avatar: "mypic.jpg",
+              role: 1)
+end
+
+# class ActionDispatch::IntegrationTest
+#   include Capybara::DSL
+#
+#   def teardown
+#     reset_session!
+#   end
+# end
 
 config.color = true
 config.tty = true
