@@ -1,0 +1,11 @@
+<h1>Challenging <%= @opponent.username.capitalize %></h1>
+<h4>Set the Scope of the Battle</h4>
+<%= form_tag("/war/round", method: "post") do %>
+  <%= label_tag(:user, "Choose Your Platoon ") %>
+  <%= collection_select(:user_platoon_id, :user, @user.platoons, :id, :name) %><br><br>
+
+  <%= label_tag(:opponent, "Choose Opponent's Platoon to Attack ") %>
+  <%= collection_select(:opponent_platoon_id, :opponent, @opponent.platoons, :id, :name) %><br><br>
+
+  <%= submit_tag("Go To War") %>
+<% end %>

@@ -1,0 +1,9 @@
+<h1>Marching Towards War</h1>
+<p>"May God have mercy upon my enemies, because I won't..." - <strong>George Patton</strong></p>
+<h4>Opposing Generals</h4>
+<ul>
+  <% @opponents.each do |opponent| %>
+    <li><%= opponent.name.capitalize %><br>
+      <%= link_to "Challenge", war_challenge_path(opponent) %> | <%= link_to "View Profile", war_path(opponent) %>
+  <% end %>
+</ul>

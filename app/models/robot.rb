@@ -2,7 +2,7 @@ class Robot < ApplicationRecord
   belongs_to :platoon
   belongs_to :division
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :health, presence: true
   validates :avatar, presence: true
   validates :division_id, presence: true
@@ -13,6 +13,24 @@ class Robot < ApplicationRecord
   def init
     self.avatar ||= generate_robo_avatar
     self.health ||= generate_health
+    self.base_attack ||= generate_base_attack
+  end
+
+  def attack
+    self.base_attack = generate_base_attack if self.base_attack.nil?
+    base_attack + (rand(20)%3)
+  end
+
+  def crit_attack
+    self.attack * 2
+  end
+
+  def injured?
+    self.health < generate_health && self.health > 0
+  end
+
+  def dead?
+    self.health <= 0
   end
 
   private
@@ -30,6 +48,18 @@ class Robot < ApplicationRecord
       20
     else
       10
+    end
+  end
+
+  def generate_base_attack
+    if self.division.unit_type == "Infantry"
+      2
+    elsif self.division.unit_type == "Medic"
+      1
+    elsif self.division.unit_type == "Ballistics"
+      4
+    else
+      3
     end
   end
 

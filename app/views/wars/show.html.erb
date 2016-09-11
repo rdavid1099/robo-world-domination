@@ -1,0 +1,9 @@
+<h1><%= @opponent.username.capitalize %>'s Stats</h1>
+<p>"If you know the enemy and know yourself, you need not fear the result of a hundred battles" - <strong>Sun Tzu</strong></p>
+<%= image_tag(@opponent.avatar, class: "profile-pic") %>
+<ul>
+  <li>Number of Platoons: <%= @opponent.platoons.count %></li>
+  <li>Total Number of Robots: <%= @opponent.robots.count %></li>
+  <li>Record: <%= @opponent.wins %> - <%= @opponent.losses %></li>
+</ul>
+<%= link_to "Challenge #{@opponent.username.capitalize}", war_challenge_path %> | <%= link_to "War Path", wars_path %>

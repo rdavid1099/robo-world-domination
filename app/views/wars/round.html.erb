@@ -1,0 +1,23 @@
+<h1><%= @user.username.upcase %> vs. <%= @opponent.username.upcase %></h1>
+<h4>YOUR Platoon: <%= @u_platoon.name.upcase %></h4>
+<ul>
+  <% @u_platoon.robots.each do |robot| %>
+    <li>
+      <%= robot.name %> - <%= robot.division.unit_type %><br>
+      Remaining HP: <%= robot.health %>
+    </li>
+  <% end %>
+</ul>
+<br>
+<h4><%= @opponent.username.upcase %>'S Platoon: <%= @o_platoon.name.upcase %></h4>
+<ul>
+  <% @o_platoon.robots.each do |robot| %>
+    <li>
+      <%= robot.name %> - <%= robot.division.unit_type %><br>
+      Remaining HP: <%= robot.health %>
+    </li>
+  <% end %>
+</ul>
+<%= form_tag("/war/attack", method: "post") do %>
+  <%= submit_tag("Next Round") %>
+<% end %>

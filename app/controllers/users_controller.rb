@@ -1,8 +1,9 @@
 class UsersController < Concerns::BaseController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_action :require_login, only: [:welcome, :new, :create]
+  skip_before_action :require_login, only: [:warzone, :new, :create]
 
-  def welcome
+  def warzone
+    render file: '/public/welcome' unless logged_in?
   end
 
   def new

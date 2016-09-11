@@ -1,0 +1,11 @@
+<h1>Robo World Domination</h1>
+<h3>Welcome, <%= current_user.name.capitalize %></h3>
+<h4>Status Debrief</h4>
+  <p>It's been <%= pluralize(current_user.since_last_login, "day") %> since you last
+    checked in on your troops.<br>
+    Your platoons now have a total record of <%= current_user.wins %> wins and <%= current_user.losses %> losses.<br>
+    You have <%= current_user.num_of_injured_bots %> injured bots and <%= current_user.num_of_dead_bots %> deceased bots.<br>
+  </p>
+  <p>This is war <%= current_user.name.capitalize %>, get back in the fight!<br><br>
+    <%= link_to "View Your Platoons", platoons_path %> | <%= link_to "Go To War", wars_path %>
+  </p>

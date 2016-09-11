@@ -1,0 +1,19 @@
+<h1>Endgame</h1>
+<p>War... What is it good for?</p>
+<% if @u_platoon.defeated? %>
+  <h3>You Are Defeated</h3>
+  <p>We may have lost the fight, but we cannot lose the battle...</p>
+<% else %>
+  <h3>You Are Victorious</h3>
+  <p>Our enemies are nothing more than a pile of rusted bolts...</p>
+<% end %>
+<h4>Final Results</h4>
+<ul>
+  <li>Your Overall Record: <%= @u_platoon.user.wins %> - <%= @u_platoon.user.losses %></li>
+  <li>Your Record Against <%= @o_platoon.user.username.capitalize %>: <%= @war.wins %> - <%= @war.losses %></li>
+  <li><%= @u_platoon.name.capitalize %>'s Record: <%= @u_platoon.num_of_wins %> - <%= @u_platoon.num_of_losses %></li>
+  <li>Your Injured Bots: <%= @u_platoon.injured_bots %></li>
+  <li>Your Destroyed Bots: <%= @u_platoon.dead_bots %></li>
+  <li>Bots You Injured: <%= @o_platoon.injured_bots %></li>
+  <li>Bots You Destroyed: <%= @o_platoon.dead_bots %></li>
+</ul>

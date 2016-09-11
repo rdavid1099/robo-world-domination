@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :wars
   has_many :platoons
+  has_many :robots, through: :platoons
 
   EMAIL_REGEX = /\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\z/i
   validates :name, presence: true
@@ -15,5 +17,33 @@ class User < ApplicationRecord
 
   def init
     self.avatar ||= "default_avatar.jpg"
+  end
+
+  def since_last_login
+    ((Time.now - self.updated_at.to_time)/1.day).ceil
+  end
+
+  def wins
+    return 0 if self.platoons.empty?
+    self.platoons.reduce(0) {|result, platoon| result += platoon.num_of_wins.to_i}
+  end
+
+  def losses
+    return 0 if self.platoons.empty?
+    self.platoons.reduce(0) {|result, platoon| result += platoon.num_of_wins.to_i}
+  end
+
+  def num_of_injured_bots
+    return 0 if self.robots.empty?
+    self.platoons.reduce(0) {|result, platoon| result += platoon.injured_bots}
+  end
+
+  def num_of_dead_bots
+    return 0 if self.robots.empty?
+    self.platoons.reduce(0) {|result, platoon| result += platoon.dead_bots}
+  end
+
+  def self.all_except(user)
+    where.not(id: user.id)
   end
 end

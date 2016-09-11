@@ -70,7 +70,7 @@ class RobotsController < Concerns::BaseController
   end
 
   def validate_id_number
-    if Robot.find_by(id: params[:id]).nil? || Platoon.find_by(id: params[:platoon_id]).nil?
+    if current_user.robots.find_by(id: params[:id]).nil? || current_user.platoons.find_by(id: params[:platoon_id]).nil?
       render file: '/public/404'
     end
   end

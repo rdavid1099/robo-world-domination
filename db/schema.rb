@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910200353) do
+ActiveRecord::Schema.define(version: 20160911154909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160910200353) do
     t.integer  "platoon_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "base_attack"
     t.index ["division_id"], name: "index_robots_on_division_id", using: :btree
     t.index ["platoon_id"], name: "index_robots_on_platoon_id", using: :btree
   end
@@ -54,6 +55,15 @@ ActiveRecord::Schema.define(version: 20160910200353) do
     t.integer  "role",                  default: 0
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+  end
+
+  create_table "wars", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "opponent_id"
+    t.integer  "wins"
+    t.integer  "losses"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_foreign_key "platoons", "users"
