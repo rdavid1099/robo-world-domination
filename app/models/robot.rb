@@ -16,6 +16,11 @@ class Robot < ApplicationRecord
     self.base_attack ||= generate_base_attack
   end
 
+  def full_health
+    self.health = generate_health
+    self.save
+  end
+
   def attack
     self.base_attack = generate_base_attack if self.base_attack.nil?
     base_attack + (rand(20)%3)

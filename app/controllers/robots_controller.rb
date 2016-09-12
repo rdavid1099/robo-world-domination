@@ -1,6 +1,6 @@
 class RobotsController < Concerns::BaseController
   before_action :validate_id_number, only: [:show, :edit]
-  before_action :set_robot, only: [:show, :edit, :update, :destroy]
+  before_action :set_robot, only: [:show, :edit, :update, :destroy, :heal]
   before_action :set_divisions, only: [:edit, :update, :new, :create]
   before_action :set_platoon
 
@@ -41,6 +41,11 @@ class RobotsController < Concerns::BaseController
   def destroy
     @robot.destroy
     redirect_to platoon_path(@platoon)
+  end
+
+  def heal
+    @robot.full_health
+    redirect_to platoon_robot_path(@platoon, @robot)
   end
 
   private

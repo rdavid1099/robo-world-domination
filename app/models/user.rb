@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   def losses
     return 0 if self.platoons.empty?
-    self.platoons.reduce(0) {|result, platoon| result += platoon.num_of_wins.to_i}
+    self.platoons.reduce(0) {|result, platoon| result += platoon.num_of_losses.to_i}
   end
 
   def num_of_injured_bots
@@ -44,6 +44,6 @@ class User < ApplicationRecord
   end
 
   def self.all_except(user)
-    where.not(id: user.id)
+    where.not(id: user.id, role: 1)
   end
 end

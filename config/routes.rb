@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   root 'users#warzone'
 
+  namespace :admin do
+    get '/options', to: 'users#options'
+    resources :users
+    resources :platoons
+    resources :robots
+    resources :divisions
+  end
+
   resources :users, only: [:new, :create]
 
   get '/profile', to: 'users#show'
@@ -10,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :platoons do
     resources :robots
+    post '/robots/:id', to: 'robots#heal'
   end
 
   get '/wars/challenge/:id', to: 'wars#challenge', as: 'war_challenge'

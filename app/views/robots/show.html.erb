@@ -6,5 +6,6 @@
   <li>Stationed Platoon: <%= link_to @robot.platoon.name.capitalize, platoon_path(@platoon) %></li>
   <li>Unit Type: <%= @robot.division.unit_type %></li>
 </ul>
+<%= link_to "Repair #{@robot.name.capitalize}", platoon_robot_path(@platoon, @robot), method: :post %> |
 <%= link_to "Re-Assign #{@robot.name.capitalize}'s Attributes", edit_platoon_robot_path(@platoon, @robot) %> |
 <%= link_to "Disassemble #{@robot.name.capitalize}", platoon_robot_path(@platoon, @robot), method: :delete %>
